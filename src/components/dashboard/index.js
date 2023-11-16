@@ -3,9 +3,9 @@ import axios from 'axios';
 import PuffLoader from 'react-spinners/PuffLoader';
 import { css } from '@emotion/core';
 
-import ProfileOverview from './Profile';
-import DayStats from './charts/DaysStats';
-import Stats from './Overview';
+import Profile from './Profile';
+import Charts from './charts';
+import Overview from './Overview';
 import Activities from './Activities';
 import Followers from './Followers';
 import Following from './Following';
@@ -19,7 +19,7 @@ const overHead = css`
   grid-column: 1/4;
 `;
 
-function Profile(props) {
+function Dashboard(props) {
 
   const [isActive, setIsActive] = useState({
     activity: true,
@@ -148,7 +148,7 @@ function Profile(props) {
     if (profile.login.length !== 0) {
       return (
         <><>
-          <ProfileOverview profile={profile} />
+          <Profile profile={profile} />
         </></>
       )
     }
@@ -157,7 +157,7 @@ function Profile(props) {
   const getDaysStats = (events) => {
     if (events.length > 0) {
       return (
-        <DayStats events={events} />
+        <Charts events={events} />
       )
     }
   }
@@ -171,7 +171,7 @@ function Profile(props) {
               profile.avatar_url.length > 0 && getProfile(profile)
             }
             <div className="headData">
-              {events1.length > 0 && <Stats events={events1} userName={profile} stats={stats} lastDate={lastDate} />}
+              {events1.length > 0 && <Overview events={events1} userName={profile} stats={stats} lastDate={lastDate} />}
             </div>
           </header>
           <main>
@@ -231,4 +231,4 @@ function Profile(props) {
   )
 }
 
-export default Profile
+export default Dashboard;

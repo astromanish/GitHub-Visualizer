@@ -4,7 +4,7 @@ function Footer(){
     return(
         <>
         <footer>
-            <div className="salutation">Like it? Give a <span className="star">Star</span> on <a href="https://github.com/rush-tea/git-stats">GitHub↗ </a></div>
+            <div className="salutation">Like it? Give a <span className="star">Star</span> on <a href="https://github.com/astromanish/git-stats">GitHub</a></div>
             <div className="footer-contact">
                 <div className="footer-contact-names">
                         <div>
