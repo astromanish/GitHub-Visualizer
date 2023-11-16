@@ -1,5 +1,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
+import PuffLoader from 'react-spinners/PuffLoader';
+import { css } from '@emotion/core';
+
 import ProfileOverview from './Profile';
 import DayStats from './charts/DaysStats';
 import Stats from './Overview';
@@ -7,9 +10,7 @@ import Activities from './Activities';
 import Followers from './Followers';
 import Following from './Following';
 import Repositories from './Repositories';
-import PuffLoader from 'react-spinners/PuffLoader';
-import { css } from '@emotion/core';
-import Footer from './SearchPage/SearchPageFooter';
+import Footer from '../Footer';
 
 const overHead = css`
   height: 35vh;

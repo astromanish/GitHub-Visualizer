@@ -1,10 +1,9 @@
 import React from 'react'
-import CommitList from './contributions';
-import Footer from './SearchPage/SearchPageFooter';
 
+import CommitList from './contributions';
+import Footer from '../Footer';
 
 const MoreRepoDetails = (props) => {
-    //console.log(props);
     return (
         <>
         <CommitList data={props} />

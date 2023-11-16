@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Search from './components/SearchPage/SearchPage';
-import MoreRepoDetails from './components/MoreRepoDetails';
-import Profile from './components/profile';
+
+import Search from './components/search/index';
+import Profile from './components/dashboard/index';
+import MoreRepoDetails from './components/repositories/index';
 
 
 function App() {

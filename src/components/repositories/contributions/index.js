@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './Css/commitList.css'
+import './css/CommitList.css'
 import axios from 'axios';
+
 import CommitYearList from './CommitYearList';
 
 const CommitList = (props) => {
