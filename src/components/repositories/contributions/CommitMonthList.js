@@ -1,5 +1,5 @@
 import React from 'react';
-import Commit from './commit'
+import Commit from './Commit'
 import './Css/commitMonthList.css'
 
 const CommitMonthList = (props) => {

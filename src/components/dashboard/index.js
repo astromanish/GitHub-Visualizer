@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
-import ProfileOverview from './ProfileOverview';
+import ProfileOverview from './Profile';
 import DayStats from './charts/DaysStats';
-import Stats from './Stats';
+import Stats from './Overview';
 import Activities from './Activities';
 import Followers from './Followers';
 import Following from './Following';

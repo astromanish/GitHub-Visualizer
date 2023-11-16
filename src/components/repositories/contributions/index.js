@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Css/commitList.css'
 import axios from 'axios';
-import CommitYearList from './commitYearList';
+import CommitYearList from './CommitYearList';
 
 const CommitList = (props) => {
     const [commitdata, setCommitData] = useState([]);

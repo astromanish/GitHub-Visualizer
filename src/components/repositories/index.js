@@ -1,5 +1,5 @@
 import React from 'react'
-import CommitList from './Contributions/commitList';
+import CommitList from './contributions';
 import Footer from './SearchPage/SearchPageFooter';
 
 
