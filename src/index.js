@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import './components/css/index.css';
-import './components/css/Followers.css';
-import './components/css/Repositories.css';
-import './components/css/Activities.css';
-import './components/css/Charts.css';
-import './components/css/ProfileTop.css';
-import './components/css/SearchPage.css';
-import './components/css/Footer.css';
+import './styles/app.css';
+import './styles/Followers.css';
+import './styles/Repositories.css';
+import './styles/Activities.css';
+import './styles/Charts.css';
+import './styles/ProfileTop.css';
+import './styles/SearchPage.css';
+import './styles/Footer.css';
 
 ReactDOM.render(
   <React.StrictMode>

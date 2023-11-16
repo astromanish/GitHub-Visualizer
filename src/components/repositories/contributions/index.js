@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './css/CommitList.css'
+import '../../../styles/CommitList.css'
 import axios from 'axios';
 
 import CommitYearList from './CommitYearList';

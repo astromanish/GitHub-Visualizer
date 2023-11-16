@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/Commit.css'
+import '../../../styles/Commit.css'
 
 const Commit = (props) => {
     const satile1 = {

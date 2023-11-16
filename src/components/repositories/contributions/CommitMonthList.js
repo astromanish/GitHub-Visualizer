@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/CommitMonthList.css'
+import '../../../styles/CommitMonthList.css'
 
 import Commit from './GeneralCommit'
 
