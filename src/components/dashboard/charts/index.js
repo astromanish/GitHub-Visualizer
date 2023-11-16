@@ -104,7 +104,7 @@ const DayStats = (props) => {
                 timeArray[i] = data.toFixed(2);
                 i++;
             });
-            var bgArray = ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)', 'rgba(255, 1, 64, 0.2)'];
+            var bgArray = ['rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)', 'rgba(255, 1, 64, 0.5)'];
             var a1 = [];
             var a2 = [];
             var a3 = [];
@@ -176,13 +176,13 @@ const DayStats = (props) => {
                                     label: "Contribution %",
                                     data: Days,
                                     backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)',
-                                        'rgba(255, 1, 64, 0.2)'
+                                        'rgba(255, 99, 132, 0.5)',
+                                        'rgba(54, 162, 235, 0.5)',
+                                        'rgba(255, 206, 86, 0.5)',
+                                        'rgba(75, 192, 192, 0.5)',
+                                        'rgba(153, 102, 255, 0.5)',
+                                        'rgba(255, 159, 64, 0.5)',
+                                        'rgba(255, 1, 64, 0.5)'
                                     ]
                                 }],
                                 labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
