@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import PuffLoader from 'react-spinners/PuffLoader';
-import { css } from '@emotion/core';
 
 import Profile from './Profile';
 import Charts from './charts';
@@ -12,15 +11,14 @@ import Following from './Following';
 import Repositories from './Repositories';
 import Footer from '../Footer';
 
-const overHead = css`
-  height: 35vh;
-  display: block;
-  margin: 30vh auto 10vh auto;
-  grid-column: 1/4;
-`;
+const overHeadStyles = {
+  height: '35vh',
+  display: 'block',
+  margin: '30vh auto 10vh auto',
+  gridColumn: '1/4'
+};
 
 function Dashboard(props) {
-
   const [isActive, setIsActive] = useState({
     activity: true,
     follower: false,
@@ -49,7 +47,7 @@ function Dashboard(props) {
   const getStats = async () => {
     if (loaded === true) {
       var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      axios.get('https://api.github.com/users/' + props.match.params.profile_id, {
+      axios.get(`https://api.github.com/users/${props.match.params.profile_id}`, {
         headers: {
           authorization: `token ${process.env.REACT_APP_API_KEY}`
         }
@@ -75,7 +73,7 @@ function Dashboard(props) {
           console.log(err);
           setLoading(true);
         });
-      axios.get('https://api.github.com/users/' + props.match.params.profile_id + '/events?page=1&per_page=45', {
+      axios.get(`https://api.github.com/users/${props.match.params.profile_id}/events?page=1&per_page=45`, {
         headers: {
           authorization: `token ${process.env.REACT_APP_API_KEY}`
         }
@@ -90,7 +88,7 @@ function Dashboard(props) {
       var pageNo = 1;
       var ev = [];
       while (pageNo) {
-        var res = await axios.get('https://api.github.com/users/' + props.match.params.profile_id + '/events?page=' + pageNo + '&per_page=100', {
+        var res = await axios.get(`https://api.github.com/users/${props.match.params.profile_id}/events?page=${pageNo}&per_page=100`, {
           headers: {
             authorization: `"token ${process.env.REACT_APP_KEY}"`
           }
@@ -147,9 +145,7 @@ function Dashboard(props) {
   const getProfile = () => {
     if (profile.login.length !== 0) {
       return (
-        <><>
-          <Profile profile={profile} />
-        </></>
+        <Profile profile={profile} />
       )
     }
   }
@@ -162,10 +158,10 @@ function Dashboard(props) {
     }
   }
 
-  const getContent = (profile, events, events1, lastDate, loaded, isActive, stats, overHead) => {
+  const getContent = (profile, events, events1, lastDate, loaded, isActive, stats, overHeadStyles) => {
     if (loaded === false) {
       return (
-        <><>
+        <>
           <header>
             {
               profile.avatar_url.length > 0 && getProfile(profile)
@@ -217,16 +213,17 @@ function Dashboard(props) {
             </div>
           </main>
           <Footer />
-        </></>
+        </>
       )
     }
     else {
-      return <PuffLoader color="#4A90E2" css={overHead} loading={loaded} />
+      return <PuffLoader color="#4A90E2" style={overHeadStyles} loading={loaded} />
     }
   }
+
   return (
     <>
-      {getContent(profile, events, events1, lastDate, loaded, isActive, stats, overHead)}
+      {getContent(profile, events, events1, lastDate, loaded, isActive, stats, overHeadStyles)}
     </>
   )
 }

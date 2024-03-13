@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import SearchPage from './components/search';
 import DashboardPage from './components/dashboard';
@@ -9,11 +9,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Switch>
-          <Route exact path="/" component={SearchPage} />
-          <Route exact path="/:profile_id" component={DashboardPage} />
-          <Route exact path="/:profile_id/:repo_name" component={RepositoryPage} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<SearchPage/>} />
+          <Route path="/:profile_id" element={<DashboardPage/>} />
+          <Route path="/:profile_id/:repo_name" element={<RepositoryPage/>} />
+        </Routes>
       </div>
     </BrowserRouter>
   );

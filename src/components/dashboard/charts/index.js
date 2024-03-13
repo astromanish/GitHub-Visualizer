@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { css } from '@emotion/core';
-
-const override = css`
-    display: block;
-    margin: 0 auto;
-`;
 
 const DayStats = (props) => {
-
     const [events, setEvents] = useState([]);
     const [prodDays, setProdDays] = useState({
         firstDay: ''
@@ -37,7 +30,6 @@ const DayStats = (props) => {
     }, [props]);
 
     const dispEvents = (events) => {
-
         if (events.length > 0 && loaded === false) {
             var DayName = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             var daysArray = []
@@ -162,134 +154,120 @@ const DayStats = (props) => {
         }
     }
 
-    const getContent = (Days, loaded, prodDays, prodTime, Time, TimebgColor, override) => {
+    const getContent = (Days, loaded, prodDays, prodTime, Time, TimebgColor) => {
         if (loaded === true) {
             return (
-                <><>
-                    <div className="charts">
-                        {
-                            loaded === true && <div className="chart-heading">Most productive on <span> {prodDays.firstDay}</span> in recent Days.</div>
+                <div>
+                    {loaded === true && <div>Most productive on {prodDays.firstDay} in recent Days.</div>}
+                    {loaded === true && <Bar data={{
+                        datasets: [{
+                            label: "Contribution %",
+                            data: Days,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.5)',
+                                'rgba(54, 162, 235, 0.5)',
+                                'rgba(255, 206, 86, 0.5)',
+                                'rgba(75, 192, 192, 0.5)',
+                                'rgba(153, 102, 255, 0.5)',
+                                'rgba(255, 159, 64, 0.5)',
+                                'rgba(255, 1, 64, 0.5)'
+                            ]
+                        }],
+                        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                    }} options={{
+                        animation: {
+                            duration: 3000,
+                            easing: 'easeInOutQuint',
+                        },
+                        title: {
+                            text: "Daywise Contribution",
+                            position: 'bottom',
+                            display: true
+                        },
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: true
+                                },
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                display: false
+                            }]
                         }
+                    }} />}
+                    {loaded === true && <div>Most productive during {prodTime} in recent Days.</div>}
+                    {loaded === true && <Bar data={{
+                        datasets: [{
+                            label: "Contribution % ",
+                            data: Time.a,
+                            backgroundColor: TimebgColor,
+                        },
                         {
-                            loaded === true && <Bar data={{
-                                datasets: [{
-                                    label: "Contribution %",
-                                    data: Days,
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.5)',
-                                        'rgba(54, 162, 235, 0.5)',
-                                        'rgba(255, 206, 86, 0.5)',
-                                        'rgba(75, 192, 192, 0.5)',
-                                        'rgba(153, 102, 255, 0.5)',
-                                        'rgba(255, 159, 64, 0.5)',
-                                        'rgba(255, 1, 64, 0.5)'
-                                    ]
-                                }],
-                                labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-                            }} options={{
-                                animation: {
-                                    duration: 3000,
-                                    easing: 'easeInOutQuint',
-                                },
-                                title: {
-                                    text: "Daywise Contribution",
-                                    position: 'bottom',
-                                    display: true
-                                },
-                                legend: {
+                            label: "Contribution % ",
+                            data: Time.b,
+                            backgroundColor: TimebgColor,
+                        },
+                        {
+                            label: "Contribution % ",
+                            data: Time.c,
+                            backgroundColor: TimebgColor
+                        },
+                        {
+                            label: "Contribution % ",
+                            data: Time.d,
+                            backgroundColor: TimebgColor
+                        },
+                        {
+                            label: "Contribution % ",
+                            data: Time.e,
+                            backgroundColor: TimebgColor
+                        },
+                        {
+                            label: "Contribution % ",
+                            data: Time.f,
+                            backgroundColor: TimebgColor
+                        },
+                        ],
+                        labels: ["Night", "Morning", "Daytime", "Evening"],
+                    }} options={{
+                        animation: {
+                            duration: 3000,
+                            easing: 'easeInOutQuint',
+                        },
+                        title: {
+                            display: true,
+                            text: "Timewise Contribution"
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        scales: {
+                            xAxes: [{
+                                categoryPercentage: 1,
+                                barPercentage: 0.9,
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                barPercentage: 0.9,
+                                categoryPercentage: 1,
+                                gridLines: {
                                     display: false
                                 },
-                                scales: {
-                                    xAxes: [{
-                                        ticks: {
-                                            autoSkip: true
-                                        },
-                                        gridLines: {
-                                            display: false
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        display: false
-                                    }]
+                                ticks: {
+                                    display: false
                                 }
-                            }} />
+                            }]
                         }
-
-
-                    </div>
-                    <div className="charts">
-                        {
-                            loaded === true && <div className="chart-heading">Most productive during <span>{prodTime}</span> in recent Days.</div>
-                        }
-                        {
-                            loaded === true && <Bar data={{
-                                datasets: [{
-                                    label: "Contribution % ",
-                                    data: Time.a,
-                                    backgroundColor: TimebgColor,
-                                },
-                                {
-                                    label: "Contribution % ",
-                                    data: Time.b,
-                                    backgroundColor: TimebgColor,
-                                },
-                                {
-                                    label: "Contribution % ",
-                                    data: Time.c,
-                                    backgroundColor: TimebgColor
-                                },
-                                {
-                                    label: "Contribution % ",
-                                    data: Time.d,
-                                    backgroundColor: TimebgColor
-                                },
-                                {
-                                    label: "Contribution % ",
-                                    data: Time.e,
-                                    backgroundColor: TimebgColor
-                                },
-                                {
-                                    label: "Contribution % ",
-                                    data: Time.f,
-                                    backgroundColor: TimebgColor
-                                },
-                                ],
-                                labels: ["Night", "Morning", "Daytime", "Evening"],
-                            }} options={{
-                                animation: {
-                                    duration: 3000,
-                                    easing: 'easeInOutQuint',
-                                },
-                                title: {
-                                    display: true,
-                                    text: "Timewise Contribution"
-                                },
-                                legend: {
-                                    display: false,
-                                },
-                                scales: {
-                                    xAxes: [{
-                                        categoryPercentage: 1,
-                                        barPercentage: 0.9,
-                                        gridLines: {
-                                            display: false
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        barPercentage: 0.9,
-                                        categoryPercentage: 1,
-                                        gridLines: {
-                                            display: false
-                                        },
-                                        ticks: {
-                                            display: false
-                                        }
-                                    }]
-                                }
-                            }} />
-                        }
-                    </div>
-                </></>
+                    }} />}
+                </div>
             )
         }
     }
@@ -297,10 +275,10 @@ const DayStats = (props) => {
     return (
         <>
             {dispEvents(events)}
-            {getContent(Days, loaded, prodDays, prodTime, Time, TimebgColor, override)}
+            {getContent(Days, loaded, prodDays, prodTime, Time, TimebgColor)}
         </>
     )
 
 }
 
-export default DayStats
+export default DayStats;
