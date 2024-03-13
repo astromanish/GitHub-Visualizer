@@ -32,7 +32,7 @@ function ButtonGroupSection({ events, profile, stats }) {
   return (
     <>
       <Grid item xs={12} md={6}>
-        <Box className="a-stats" paddingTop={4}>
+        <Box className="a-stats" paddingTop={4} height="110vh">
           <Box mb={2} display="flex" flexDirection="column" alignItems="center">
             <ButtonGroup variant="contained" aria-label="outlined #424242 button group">
               <Button onClick={() => handleTabChange('activity')} variant={activeTab === 'activity' ? 'contained' : 'outlined'}>Activity</Button>
@@ -46,10 +46,8 @@ function ButtonGroupSection({ events, profile, stats }) {
                 <Button onClick={() => handleTabChange('repositories')} variant={activeTab === 'repositories' ? 'contained' : 'outlined'}>Repositories</Button>
               </Badge>
             </ButtonGroup>
-
           </Box>
           {getTabContent()}
-
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>

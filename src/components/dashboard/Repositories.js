@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CircularProgress, Box, Button } from '@mui/material';
-import PuffLoader from 'react-spinners/PuffLoader';
+import { FileCopyOutlined } from '@mui/icons-material';
 
 function Repositories(props) {
   const [activity, setActivity] = useState([]);
@@ -20,6 +20,7 @@ function Repositories(props) {
         setActivity(res.data);
         setIsLoading(false);
         setMaxPage(Math.ceil(props.stats.repo / 10));
+        console.log(res.data);
       })
       .catch(err => console.log(err));
   }, [props.userName, pageNo, props.stats.repo]);
@@ -29,11 +30,23 @@ function Repositories(props) {
     const createdAt = new Date(res.created_at);
     const formattedDate = createdAt.toUTCString().slice(0, 16);
     return (
-      <h6 className="repo-name">
-        <Link to={{ pathname: `/${props.userName}/${res.name}`, state: res }}>
-          {res.name}{res.fork ? '(Forked)' : ''}
-        </Link>
-      </h6>
+      <div className="repo-item" key={res.id}>
+        <h6 className="repo-name">
+          <Link to={{ pathname: `/${props.userName}/${res.name}`, state: res }}>
+            {res.name}{res.fork ? ' (forked)' : ''}
+          </Link>
+        </h6>
+        <div className="repo-actions">
+          <Button
+            onClick={() => {
+              navigator.clipboard.writeText(res.clone_url);
+            }}
+            startIcon={<FileCopyOutlined />}
+          >
+            Copy CLONE URL
+          </Button>
+        </div>
+      </div>
     );
   };
 

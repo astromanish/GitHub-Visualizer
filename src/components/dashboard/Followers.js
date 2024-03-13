@@ -14,7 +14,7 @@ function Followers(props) {
       try {
         const response = await axios({
           method: 'get',
-          url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=5`,
+          url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=20`,
           headers: {
             authorization: `Bearer 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`
           }
@@ -30,7 +30,7 @@ function Followers(props) {
     fetchData();
   }, [pageNo, props.userName]);
 
-  const maxPage = Math.ceil(props.stats.followers / 5);
+  const maxPage = Math.ceil(props.stats.followers / 20);
 
   const handleNextPage = () => {
     if (pageNo < maxPage) {

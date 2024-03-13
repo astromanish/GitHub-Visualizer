@@ -15,7 +15,7 @@ function Following(props) {
     }
     axios({
       method: 'get',
-      url: `https://api.github.com/users/${props.userName}/following?page=${pageNo}&per_page=5`,
+      url: `https://api.github.com/users/${props.userName}/following?page=${pageNo}&per_page=20`,
       headers: {
         authorization: `Bearer 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`
       }
@@ -25,7 +25,7 @@ function Following(props) {
     });
 
     // Calculate maxPage based on stats.following
-    setMaxPage(Math.ceil(props.stats.following / 5));
+    setMaxPage(Math.ceil(props.stats.following / 20));
   }, [pageNo, props.stats.following, props.userName]);
 
   const handlePrevPage = () => {
