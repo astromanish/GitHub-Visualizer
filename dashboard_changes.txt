@@ -1,0 +1,112 @@
+- add github token in both api: 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
+- remove useless states and use data directly from api. 
+user response
+{
+    "login": "astromanish",
+    "id": 57687267,
+    "node_id": "MDQ6VXNlcjU3Njg3MjY3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/57687267?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/astromanish",
+    "html_url": "https://github.com/astromanish",
+    "followers_url": "https://api.github.com/users/astromanish/followers",
+    "following_url": "https://api.github.com/users/astromanish/following{/other_user}",
+    "gists_url": "https://api.github.com/users/astromanish/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/astromanish/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/astromanish/subscriptions",
+    "organizations_url": "https://api.github.com/users/astromanish/orgs",
+    "repos_url": "https://api.github.com/users/astromanish/repos",
+    "events_url": "https://api.github.com/users/astromanish/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/astromanish/received_events",
+    "type": "User",
+    "site_admin": false,
+    "name": "Manish Singh",
+    "company": "Indian Institute of Technology (BHU)",
+    "blog": "10001001.netlify.app",
+    "location": "Varanasi,India",
+    "email": null,
+    "hireable": null,
+    "bio": "I make bugs and then fix them.",
+    "twitter_username": null,
+    "public_repos": 15,
+    "public_gists": 0,
+    "followers": 86,
+    "following": 51,
+    "created_at": "2019-11-12T21:09:26Z",
+    "updated_at": "2024-03-11T07:39:15Z"
+}
+push event data 
+[
+    {
+        "id": "36503018990",
+        "type": "PushEvent",
+        "actor": {
+            "id": 57687267,
+            "login": "astromanish",
+            "display_login": "astromanish",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/astromanish",
+            "avatar_url": "https://avatars.githubusercontent.com/u/57687267?"
+        },
+        "repo": {
+            "id": 293050937,
+            "name": "astromanish/git-stats",
+            "url": "https://api.github.com/repos/astromanish/git-stats"
+        },
+        "payload": {
+            "repository_id": 293050937,
+            "push_id": 17519752607,
+            "size": 4,
+            "distinct_size": 4,
+            "ref": "refs/heads/master",
+            "head": "5fc90ae5bd63e201563c89f48a3b9e3b33ea4413",
+            "before": "95917f8543ebbf4131484d331c080e696f71c553",
+            "commits": [
+                {
+                    "sha": "b2ce5ccd51b7cbb5a98d6efdc6623c21060dfe53",
+                    "author": {
+                        "email": "astromanishsingh@gmail.com",
+                        "name": "Manish Singh"
+                    },
+                    "message": "package updated",
+                    "distinct": true,
+                    "url": "https://api.github.com/repos/astromanish/git-stats/commits/b2ce5ccd51b7cbb5a98d6efdc6623c21060dfe53"
+                },
+                {
+                    "sha": "55e241e0db37427d66ac8b7dfc54faeac2e1afec",
+                    "author": {
+                        "email": "astromanishsingh@gmail.com",
+                        "name": "Manish Singh"
+                    },
+                    "message": "search page updated",
+                    "distinct": true,
+                    "url": "https://api.github.com/repos/astromanish/git-stats/commits/55e241e0db37427d66ac8b7dfc54faeac2e1afec"
+                },
+                {
+                    "sha": "7d77e21a4b36c3bc914c2a7d126877c5c3772cae",
+                    "author": {
+                        "email": "astromanishsingh@gmail.com",
+                        "name": "Manish Singh"
+                    },
+                    "message": "suggestion feature added",
+                    "distinct": true,
+                    "url": "https://api.github.com/repos/astromanish/git-stats/commits/7d77e21a4b36c3bc914c2a7d126877c5c3772cae"
+                },
+                {
+                    "sha": "5fc90ae5bd63e201563c89f48a3b9e3b33ea4413",
+                    "author": {
+                        "email": "astromanishsingh@gmail.com",
+                        "name": "Manish Singh"
+                    },
+                    "message": "home page done",
+                    "distinct": true,
+                    "url": "https://api.github.com/repos/astromanish/git-stats/commits/5fc90ae5bd63e201563c89f48a3b9e3b33ea4413"
+                }
+            ]
+        },
+        "public": true,
+        "created_at": "2024-03-13T09:10:43Z"
+    }
+]
+- use mui components and do inline styling of components
+- make code concise without losing any functionality.

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
+
+
 
 const DayStats = (props) => {
     const [events, setEvents] = useState([]);
@@ -18,6 +23,7 @@ const DayStats = (props) => {
         f: []
     });
     const [TimebgColor, setBg] = useState();
+
 
     useEffect(() => {
         var ev = [];
@@ -87,7 +93,7 @@ const DayStats = (props) => {
                 firstDay: DayName[index1]
             });
             var i = 0;
-            var sum = 0;
+            sum = 0;
             timeArray.forEach(data => {
                 sum = sum + data;
             });
@@ -179,26 +185,23 @@ const DayStats = (props) => {
                             duration: 3000,
                             easing: 'easeInOutQuint',
                         },
-                        title: {
-                            text: "Daywise Contribution",
-                            position: 'bottom',
-                            display: true
-                        },
-                        legend: {
-                            display: false
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
                         },
                         scales: {
-                            xAxes: [{
+                            x: {
                                 ticks: {
                                     autoSkip: true
                                 },
-                                gridLines: {
+                                grid: {
                                     display: false
                                 }
-                            }],
-                            yAxes: [{
+                            },
+                            y: {
                                 display: false
-                            }]
+                            }
                         }
                     }} />}
                     {loaded === true && <div>Most productive during {prodTime} in recent Days.</div>}
@@ -240,31 +243,29 @@ const DayStats = (props) => {
                             duration: 3000,
                             easing: 'easeInOutQuint',
                         },
-                        title: {
-                            display: true,
-                            text: "Timewise Contribution"
-                        },
-                        legend: {
-                            display: false,
+                        plugins: {
+                            legend: {
+                                display: false,
+                            }
                         },
                         scales: {
-                            xAxes: [{
+                            x: {
                                 categoryPercentage: 1,
                                 barPercentage: 0.9,
-                                gridLines: {
+                                grid: {
                                     display: false
                                 }
-                            }],
-                            yAxes: [{
+                            },
+                            y: {
                                 barPercentage: 0.9,
                                 categoryPercentage: 1,
-                                gridLines: {
+                                grid: {
                                     display: false
                                 },
                                 ticks: {
                                     display: false
                                 }
-                            }]
+                            }
                         }
                     }} />}
                 </div>
