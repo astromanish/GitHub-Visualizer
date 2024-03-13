@@ -64,14 +64,18 @@ function Dashboard() {
 
   return (
     <>
-      <TopSection profile={profile} />
-      <Container maxWidth="xl">
-        <Grid container spacing={2}>
-          <ChartSection loaded={loaded} events={events} />
-          <ButtonGroupSection stats={stats} events={events} profile={profile} />
-        </Grid>
-      </Container>
-      <Footer />
+        <TopSection profile={profile} />
+        <Container maxWidth="xl">
+            <Grid container spacing={2}>
+                <Grid item lg={7}>
+                    <ChartSection loaded={loaded} events={events} />
+                </Grid>
+                <Grid item lg={5}>
+                    <ButtonGroupSection stats={stats} events={events} profile={profile} />
+                </Grid>
+            </Grid>
+        </Container>
+        <Footer />
     </>
   );
 }
