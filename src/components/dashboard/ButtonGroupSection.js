@@ -31,7 +31,7 @@ function ButtonGroupSection({ events, profile, stats }) {
 
   return (
     <>
-        <Box className="a-stats" paddingTop={4} height="110vh">
+        <Box className="a-stats" paddingTop={4} height="100%">
           <Box mb={2} display="flex" flexDirection="column" alignItems="center"> 
             <ButtonGroup variant="contained" aria-label="outlined #424242 button group" m={4}>
               <Button onClick={() => handleTabChange('activity')} variant={activeTab === 'activity' ? 'contained' : 'outlined'}>Activity</Button>
