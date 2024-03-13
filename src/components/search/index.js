@@ -12,7 +12,7 @@ function Search() {
         try {
             const response = await axios.get(`https://api.github.com/search/users?q=${query}`, {
                 headers: {
-                    Authorization: 'Bearer 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'
+                    Authorization: 'Bearer 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'
                 }
             });
             const users = response.data.items.slice(0, 3); // Limit to 3 suggestions
