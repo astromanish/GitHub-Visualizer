@@ -5,6 +5,7 @@ function Activities(props) {
     const [activity, setActivity] = useState([]);
 
     useEffect(() => {
+        console.log(props);
         setActivity(props.events);
     }, [props]);
 

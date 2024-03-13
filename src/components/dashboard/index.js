@@ -6,11 +6,6 @@ import { Container, Grid } from '@mui/material';
 import TopSection from './TopSection';
 import ChartSection from './ChartSection';
 import ButtonGroupSection from './ButtonGroupSection';
-import Activities from './Activities'
-import Followers from './Followers'
-import Following from './Following'
-import Repositories from './Repositories'
-
 import Footer from '../Footer';
 
 function Dashboard() {
@@ -26,13 +21,11 @@ function Dashboard() {
     repos: 0
   });
 
-  const [activeTab, setActiveTab] = useState('activity');
 
   const githubBearer = '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';
 
   const getStats = async () => {
     if (loaded) {
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       try {
         const res = await axios.get(`https://api.github.com/users/${user_id}`, {
           headers: {
@@ -69,33 +62,13 @@ function Dashboard() {
     getStats();
   }, [loaded, user_id]);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
-  const getTabContent = () => {
-    switch (activeTab) {
-      case 'activity':
-        return <Activities events={events} />;
-      case 'followers':
-        return <Followers userName={profile.login} />;
-      case 'following':
-        return <Following userName={profile.login} />;
-      case 'repositories':
-        return <Repositories userName={profile.login} />;
-      default:
-        return <Activities events={events} />;
-    }
-  };
-
   return (
     <>
-      <TopSection loaded={loaded} profile={profile} />
+      <TopSection profile={profile} />
       <Container maxWidth="xl">
         <Grid container spacing={2}>
           <ChartSection loaded={loaded} events={events} />
-          <ButtonGroupSection activeTab={activeTab} handleTabChange={handleTabChange} stats={stats} />
-          {getTabContent()}
+          <ButtonGroupSection stats={stats} events={events} profile={profile} />
         </Grid>
       </Container>
       <Footer />

@@ -17,7 +17,7 @@ function Repositories(props) {
   useEffect(() => {
     axios.get(`https://api.github.com/users/${props.userName}/repos?per_page=100`, {
       headers: {
-        authorization: `Bearer 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`
+        authorization: `Bearer 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`
       }
     })
       .then(res => {

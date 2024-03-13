@@ -11,7 +11,7 @@ const overHeadStyles = {
 };
 
 function Followers(props) {
-  const maxPage = Math.ceil(props.stats.followers / 30);
+  const maxPage = 3;
   const [followers, setFollowers] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ function Followers(props) {
       method: 'get',
       url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=30`,
       headers: {
-        authorization: `Bearer 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`
+        authorization: `Bearer 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`
       }
     }).then(function (response) {
       setFollowers(response.data);
