@@ -1,87 +1,102 @@
 import React, { useEffect, useState } from 'react';
-import '../../../styles/CommitList.css'
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-
-import CommitYearList from './CommitYearList';
+import Commit from './Commit';
 
 const CommitList = (props) => {
-    const [commitdata, setCommitData] = useState([]);
-    const [isloading, setIsLoading] = useState(true);
+    const [commitData, setCommitData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Fetch commit data from GitHub API
     useEffect(() => {
-        axios.get(`https://api.github.com/repos/${props.data.match.params.profile_id}/${props.data.match.params.repo_name}/commits?per_page=100`, {
+        axios.get(`https://api.github.com/repos/${props.repoData.owner.login}/${props.repoData.name}/commits?per_page=100`, {
             headers: {
-                authorization: `Bearer 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`
+                authorization: `Bearer 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`
             }
         })
-            .then(res => {
-                setCommitData(() => {
-                    return res.data.map((d) => {
-                        const c_date = new Date(d.commit.committer.date);
-                        return {
-                            month: c_date.getMonth(),
-                            date: c_date.getDate(),
-                            year: c_date.getFullYear()
-                        };
-                    })
-                })
-                setIsLoading(false);
-            })
-            .catch(err => console.log(err));
-    }, [])
+        .then(res => {
+            // Map data to temporary array
+            const mappedData = res.data.map((d) => {
+                const c_date = new Date(d.commit.author.date);
+                console.log(c_date);
+                return {
+                    month: c_date.getMonth(),
+                    date: c_date.getDate(),
+                    year: c_date.getFullYear()
+                };
+            });
 
-    const crtd_date = new Date(props.data.location.state.created_at);
-    const s_date = new Date(crtd_date.getFullYear(), 0, 1);
-    const e_date = new Date();
-    const d_array = [];
+            // Set commitData state with mapped data
+            setCommitData(mappedData);
+            setIsLoading(false);
+        })
+        .catch(err => console.log(err));
+    }, [props.repoData])
 
-    for (let i = s_date.valueOf(); i <= e_date.valueOf(); i += 86400000) {
-        const c_date = new Date(i);
-        d_array.push({
-            id: c_date.valueOf(),
-            year: c_date.getFullYear(),
-            month: c_date.getMonth(),
-            date: c_date.getDate(),
-            commit: 0
+    // Generate month-wise commit data
+    const generateMonthlyCommitData = () => {
+        const dateArray = [];
+        
+        // Populate commit counts in dateArray
+        commitData.forEach((commit) => {
+            const existingMonthYear = dateArray.find(date => date.year === commit.year && date.month === commit.month);
+            if (existingMonthYear) {
+                const existingDay = existingMonthYear.days.find(day => day.date === commit.date);
+                if (existingDay) {
+                    existingDay.commit += 1;
+                } else {
+                    existingMonthYear.days.push({ date: commit.date, commit: 1 });
+                }
+            } else {
+                dateArray.push({
+                    year: commit.year,
+                    month: commit.month,
+                    name: getMonthName(commit.month),
+                    days: [{ date: commit.date, commit: 1 }]
+                });
+            }
+        });
+
+        return dateArray;
+    }
+
+
+    // Generate Commit components for each month
+    const generateMonthComponents = () => {
+        const monthlyCommitData = generateMonthlyCommitData();
+        console.log(monthlyCommitData);
+        return monthlyCommitData.map((monthData) => {
+            return <Commit key={monthData.name} monthName={monthData.name} dayData={monthData.days} />
         });
     }
 
-    const l1 = d_array.length;
-    const l2 = commitdata.length;
-    for (let j = 0; j < l2; j++) {
-        const c_data = commitdata[j];
-        for (let k = 0; k < l1; k++) {
-            const c_d_array = d_array[k];
-            if (c_data.date === c_d_array.date && c_d_array.month === c_data.month && c_data.year === c_d_array.year) {
-                c_d_array.commit += 1;
-            }
-        }
+    // Function to get month name (e.g., "May")
+    const getMonthName = (month) => {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return months[month];
     }
-
-    const y_array = [];
-
-    for (let l = crtd_date.getFullYear(); l <= 2020; l++) {
-        const t_year = d_array.filter((daydata) => {
-            return daydata.year === l;
-        })
-        if (t_year.length != 0) {
-            y_array.push(t_year);
-        }
-    }
-
-    const y_components = y_array.map((yr) => {
-        return <CommitYearList key={yr[0].id} dydata={yr} />
-    })
-
 
     return (
-        <div>
-            <h1 className="heading"><u>Contributions</u></h1>
-            {isloading ? <p className="loading">data loading..</p> : ''}
-            <div className="commit-list">
-                {y_components}
-            </div>
-        </div>
-
+        <Box display="flex" flexDirection="column" alignItems="center">
+            <Typography variant="h4" fontWeight="bold" mb={2}>
+                Repo Activities
+            </Typography>
+            {isLoading ? (
+                <CircularProgress />
+            ) : (
+                commitData.length === 0 ? (
+                    <Typography variant="body1" align="center">
+                        No commit data
+                    </Typography>
+                ) : (
+                    <Box className="commit-list">
+                        {generateMonthComponents()}
+                    </Box>
+                )
+            )}
+        </Box>
     );
 }
 
