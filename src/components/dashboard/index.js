@@ -5,6 +5,7 @@ import PuffLoader from 'react-spinners/PuffLoader';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Badge from '@mui/material/Badge';
+import { Box, Container, Grid } from '@mui/material';
 
 import Profile from './Profile';
 import Charts from './charts';
@@ -36,7 +37,7 @@ function Dashboard() {
 
   const [activeTab, setActiveTab] = useState('activity');
 
-  const githubToken = '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';
+  const githubToken = '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';
 
   const getStats = async () => {
     if (loaded) {
@@ -104,58 +105,71 @@ function Dashboard() {
   };
 
   return (
+
     <>
-      <header>
-        {loaded ? (
-          <PuffLoader color="#4A90E2" loading={loaded} />
-        ) : (
-          profile.avatar_url.length > 0 && <Profile profile={profile} />
-        )}
-      </header>
-      <main>
-        <div className="day-stats">
-          {loaded ? null : events.length > 0 && <Charts events={events} />}
-        </div>
-        <div className="a-stats">
-          <ButtonGroup variant="contained" aria-label="outlined primary button group">
-            <Badge badgeContent={stats.followers} color="primary">
-              <Button
-                onClick={() => handleTabChange('activity')}
-                variant={activeTab === 'activity' ? 'contained' : 'outlined'}
-              >
-                Activity
-              </Button>
-            </Badge>
-            <Badge badgeContent={stats.following} color="primary">
-              <Button
-                onClick={() => handleTabChange('followers')}
-                variant={activeTab === 'followers' ? 'contained' : 'outlined'}
-              >
-                Followers
-              </Button>
-            </Badge>
-            <Badge badgeContent={stats.repos} color="primary">
-              <Button
-                onClick={() => handleTabChange('following')}
-                variant={activeTab === 'following' ? 'contained' : 'outlined'}
-              >
-                Following
-              </Button>
-            </Badge>
-            <Badge badgeContent={stats.repos} color="primary">
-              <Button
-                onClick={() => handleTabChange('repositories')}
-                variant={activeTab === 'repositories' ? 'contained' : 'outlined'}
-              >
-                Repositories
-              </Button>
-            </Badge>
-          </ButtonGroup>
-          {getTabContent()}
-        </div>
-      </main>
-      <Footer />
-    </>
+    <Container maxWidth="xl">
+      <Grid container justifyContent="center">
+        <Grid item xs={12}>
+          {loaded ? (
+            <PuffLoader color="#4A90E2" loading={loaded} />
+          ) : (
+            <Profile profile={profile} />
+          )}
+        </Grid>
+      </Grid>
+    </Container>
+    <Container maxWidth="xl">
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Box className="day-stats" style={{ minHeight: '400px' }}>
+            {loaded ? null : events.length > 0 && <Charts events={events} />}
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box className="a-stats" paddingTop={4}>
+            <Box mb={2} display="flex" flexDirection="column" alignItems="center">
+              <ButtonGroup variant="contained" aria-label="outlined #424242 button group">
+                <Button
+                  onClick={() => handleTabChange('activity')}
+                  variant={activeTab === 'activity' ? 'contained' : 'outlined'}
+                >
+                  Activity
+                </Button>
+                <Badge badgeContent={stats.following} color="primary">
+                  <Button
+                    onClick={() => handleTabChange('followers')}
+                    variant={activeTab === 'followers' ? 'contained' : 'outlined'}
+                  >
+                    Followers
+                  </Button>
+                </Badge>
+                <Badge badgeContent={stats.repos} color="primary">
+                  <Button
+                    onClick={() => handleTabChange('following')}
+                    variant={activeTab === 'following' ? 'contained' : 'outlined'}
+                  >
+                    Following
+                  </Button>
+                </Badge>
+                <Badge badgeContent={stats.repos} color="primary">
+                  <Button
+                    onClick={() => handleTabChange('repositories')}
+                    variant={activeTab === 'repositories' ? 'contained' : 'outlined'}
+                  >
+                    Repositories
+                  </Button>
+                </Badge>
+              </ButtonGroup>
+            </Box>
+            {getTabContent()}
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
+    <Footer />
+  </>
+    
+
   );
 }
 
