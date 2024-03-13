@@ -7,10 +7,10 @@ const ButtonGroupSection = ({ activeTab, handleTabChange, stats }) => (
       <Box mb={2} display="flex" flexDirection="column" alignItems="center">
         <ButtonGroup variant="contained" aria-label="outlined #424242 button group">
           <Button onClick={() => handleTabChange('activity')} variant={activeTab === 'activity' ? 'contained' : 'outlined'}>Activity</Button>
-          <Badge badgeContent={stats.following} color="primary">
+          <Badge badgeContent={stats.followers} color="primary">
             <Button onClick={() => handleTabChange('followers')} variant={activeTab === 'followers' ? 'contained' : 'outlined'}>Followers</Button>
           </Badge>
-          <Badge badgeContent={stats.repos} color="primary">
+          <Badge badgeContent={stats.following} color="primary">
             <Button onClick={() => handleTabChange('following')} variant={activeTab === 'following' ? 'contained' : 'outlined'}>Following</Button>
           </Badge>
           <Badge badgeContent={stats.repos} color="primary">

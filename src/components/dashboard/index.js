@@ -28,7 +28,7 @@ function Dashboard() {
 
   const [activeTab, setActiveTab] = useState('activity');
 
-  const githubBearer = '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';
+  const githubBearer = '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';
 
   const getStats = async () => {
     if (loaded) {
@@ -95,6 +95,7 @@ function Dashboard() {
         <Grid container spacing={2}>
           <ChartSection loaded={loaded} events={events} />
           <ButtonGroupSection activeTab={activeTab} handleTabChange={handleTabChange} stats={stats} />
+          {getTabContent()}
         </Grid>
       </Container>
       <Footer />
