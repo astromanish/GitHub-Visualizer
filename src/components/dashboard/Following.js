@@ -15,7 +15,7 @@ function Following(props) {
     }
     axios({
       method: 'get',
-      url: `https://api.github.com/users/${props.userName}/following?page=${pageNo}&per_page=30`,
+      url: `https://api.github.com/users/${props.userName}/following?page=${pageNo}&per_page=5`,
       headers: {
         authorization: `Bearer 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`
       }
@@ -25,7 +25,7 @@ function Following(props) {
     });
 
     // Calculate maxPage based on stats.following
-    setMaxPage(Math.ceil(props.stats.following / 30));
+    setMaxPage(Math.ceil(props.stats.following / 5));
   }, [pageNo, props.stats.following, props.userName]);
 
   const handlePrevPage = () => {
@@ -49,7 +49,7 @@ function Following(props) {
   } else {
     return (
       <>
-        <Box display="flex" flexDirection="column" alignItems="center">
+        <Box display="flex" flexDirection="column" alignItems="center" className="repo-scroll" id="act-scrollbar">
           {
             followings.map(res => (
               <Box key={res.id} className="f-details" width="100%" display="flex" alignItems="center" mb={2}>

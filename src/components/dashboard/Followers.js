@@ -14,7 +14,7 @@ function Followers(props) {
       try {
         const response = await axios({
           method: 'get',
-          url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=30`,
+          url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=5`,
           headers: {
             authorization: `Bearer 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`
           }
@@ -30,7 +30,7 @@ function Followers(props) {
     fetchData();
   }, [pageNo, props.userName]);
 
-  const maxPage = Math.ceil(props.stats.followers / 30);
+  const maxPage = Math.ceil(props.stats.followers / 5);
 
   const handleNextPage = () => {
     if (pageNo < maxPage) {
@@ -53,7 +53,7 @@ function Followers(props) {
   } else {
     return (
       <>
-        <Box display="flex" flexDirection="column" alignItems="center">
+        <Box display="flex" flexDirection="column" alignItems="center" className="repo-scroll" id="act-scrollbar">
           {followers.map(res => (
             <Box key={res.id} className="f-details" width="100%" display="flex" alignItems="center" mb={2}>
               <img src={res.avatar_url} alt="logo" className="f-logo" />
