@@ -53,11 +53,6 @@ function Following(props) {
                       </Link>
                     </button>
                   </span>
-                  <span className='f-git-link'>
-                    <a href={res.html_url} className="cool-link">
-                      Github <i className="fa fa-github-alt" aria-hidden="true"></i>
-                    </a>
-                  </span>
                 </div>
               )
             })

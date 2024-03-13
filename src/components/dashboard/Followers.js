@@ -1,67 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import PuffLoader from 'react-spinners/PuffLoader';
-
-const overHeadStyles = {
-  height: '60vh',
-  display: 'block',
-  margin: '30vh auto 10vh auto',
-  gridColumn: '1/4'
-};
+import { Box, Button, CircularProgress } from '@mui/material';
 
 function Followers(props) {
-  const maxPage = 3;
   const [followers, setFollowers] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (pageNo < 1) {
-      setPageNo(1);
-    }
-    axios({
-      method: 'get',
-      url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=30`,
-      headers: {
-        authorization: `Bearer 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`
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=30`);
+        setFollowers(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching followers:', error);
+        setIsLoading(false);
       }
-    }).then(function (response) {
-      setFollowers(response.data);
-      setIsLoading(false);
-    });
-  }, [pageNo]);
+    };
+
+    fetchData();
+  }, [pageNo, props.userName]);
+
+  const maxPage = Math.ceil(props.stats.followers / 30);
 
   if (isLoading) {
     return (
-      <PuffLoader color="#333" style={overHeadStyles} loading={isLoading} />
+      <Box display="flex" justifyContent="center" alignItems="center" height="60vh">
+        <CircularProgress color="primary" />
+      </Box>
     );
   } else {
     return (
       <>
-        <div className="f-div">
+        <Box display="flex" flexDirection="column" alignItems="center">
           {followers.map(res => (
-            <div key={res.id} className="f-details">
+            <Box key={res.id} className="f-details" width="100%" display="flex" alignItems="center" mb={2}>
               <img src={res.avatar_url} alt="logo" className="f-logo" />
-              <span className="f-username">
-                <button onClick={() => window.location.reload()}>
-                  <Link to={`/${res.login}`} className="cool-link">
-                    {res.login} <i className="fa fa-location-arrow" aria-hidden="true"></i>
-                  </Link>
-                </button>
+              <span className="f-username" style={{ flex: 1 }}>
+                <Button component={Link} to={`/${res.login}`} className="cool-link">
+                  {res.login} <i className="fa fa-location-arrow" aria-hidden="true"></i>
+                </Button>
               </span>
-              <span className='f-git-link'>
-                <a href={res.html_url} className="cool-link">
-                  Github <i className="fa fa-github-alt" aria-hidden="true"></i>
-                </a>
-              </span>
-            </div>
+            </Box>
           ))}
-        </div>
-        <div className="page-button">
-          <button onClick={() => { if (pageNo !== 1) setPageNo(pageNo - 1) }} className={pageNo === 1 ? 'btn disabled' : 'btn'} >Prev</button>
-          <button onClick={() => { if (pageNo !== maxPage) setPageNo(pageNo + 1) }} className={pageNo === maxPage ? 'btn disabled' : 'btn'} >Next</button>
-        </div>
+        </Box>
       </>
     );
   }

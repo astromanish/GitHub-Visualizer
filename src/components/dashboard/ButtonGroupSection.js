@@ -6,7 +6,7 @@ import Followers from './Followers'
 import Following from './Following'
 import Repositories from './Repositories'
 
-function ButtonGroupSection({events, profile, stats}){
+function ButtonGroupSection({ events, profile, stats }) {
 
   const [activeTab, setActiveTab] = useState('activity');
 
@@ -19,11 +19,11 @@ function ButtonGroupSection({events, profile, stats}){
       case 'activity':
         return <Activities events={events} />;
       case 'followers':
-        return <Followers userName={profile.login} />;
+        return <Followers userName={profile.login} stats={stats}/>;
       case 'following':
-        return <Following userName={profile.login} />;
+        return <Following userName={profile.login} stats={stats}/>;
       case 'repositories':
-        return <Repositories userName={profile.login} />;
+        return <Repositories userName={profile.login} stats={stats}/>;
       default:
         return <Activities events={events} />;
     }
@@ -46,8 +46,13 @@ function ButtonGroupSection({events, profile, stats}){
                 <Button onClick={() => handleTabChange('repositories')} variant={activeTab === 'repositories' ? 'contained' : 'outlined'}>Repositories</Button>
               </Badge>
             </ButtonGroup>
+
           </Box>
+          {getTabContent()}
+
         </Box>
+      </Grid>
+      <Grid item xs={12} md={6}>
       </Grid>
     </>
   );
