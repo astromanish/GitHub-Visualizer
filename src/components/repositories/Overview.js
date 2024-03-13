@@ -20,7 +20,8 @@ export default function Overview({ repoData }) {
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        width="50%" /* Adjusted width */
+        maxWidth="700px"
+        width="90%" /* Adjusted width */
         boxShadow={3}
         p={2}
         borderRadius={8}
