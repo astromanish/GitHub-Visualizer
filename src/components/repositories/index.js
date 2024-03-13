@@ -32,7 +32,7 @@ const Repository = () => {
             {repoData && (
                 <>
                     <Overview repoData={repoData} />
-                    {/* <CommitList data={repoData} /> */}
+                    <CommitList repoData={repoData} />
                     <Footer/>
                 </>
             )}

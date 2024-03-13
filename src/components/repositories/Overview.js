@@ -30,7 +30,7 @@ export default function Overview({ repoData }) {
           {name}
         </Typography>
         <Typography variant="subtitle2" color="textSecondary" mb={2}>
-          Created at {new Date(created_at).toLocaleDateString()}
+          created at {new Date(created_at).toLocaleDateString()}
         </Typography>
         <Box display="flex" justifyContent="center" flexWrap="wrap" mb={2}>
           {topics.map((topic, index) => (
