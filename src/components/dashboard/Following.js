@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import PuffLoader from 'react-spinners/PuffLoader';
-
-const overHeadStyles = {
-  height: '60vh',
-  display: 'block',
-  margin: '30vh auto 10vh auto',
-  gridColumn: '1/4'
-};
+import { CircularProgress, Box, Button } from '@mui/material';
 
 function Following(props) {
-  const maxPage = 3;
   const [followings, setFollowings] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [maxPage, setMaxPage] = useState(1);
 
   useEffect(() => {
     if (pageNo < 1) {
@@ -30,46 +23,50 @@ function Following(props) {
       setFollowings(response.data);
       setIsLoading(false);
     });
-  }, [pageNo]);
 
-  if (isLoading === true) {
+    // Calculate maxPage based on stats.following
+    setMaxPage(Math.ceil(props.stats.following / 30));
+  }, [pageNo, props.stats.following, props.userName]);
+
+  const handlePrevPage = () => {
+    if (pageNo !== 1) {
+      setPageNo(pageNo - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (pageNo !== maxPage) {
+      setPageNo(pageNo + 1);
+    }
+  };
+
+  if (isLoading) {
     return (
-      <PuffLoader color="#333" style={overHeadStyles} loading={isLoading} />
+      <Box display="flex" justifyContent="center" alignItems="center" height="60vh">
+        <CircularProgress color="primary" />
+      </Box>
     );
-  }
-  else {
+  } else {
     return (
       <>
-        <div className="f-div">
+        <Box display="flex" flexDirection="column" alignItems="center">
           {
-            followings.map(res => {
-              return (
-                <div key={res.id} className="f-details">
-                  <img src={res.avatar_url} alt="logo" className="f-logo" />
-                  <span className="f-username">
-                    <button onClick={() => window.location.reload()}>
-                      <Link to={`/${res.login}`} className="cool-link">
-                        {res.login} <i className="fa fa-location-arrow" aria-hidden="true"></i>
-                      </Link>
-                    </button>
-                  </span>
-                </div>
-              )
-            })
+            followings.map(res => (
+              <Box key={res.id} className="f-details" width="100%" display="flex" alignItems="center" mb={2}>
+                <img src={res.avatar_url} alt="logo" className="f-logo" />
+                <span className="f-username" style={{ flex: 1 }}>
+                  <Button component={Link} to={`/${res.login}`} className="cool-link">
+                    {res.login}
+                  </Button>
+                </span>
+              </Box>
+            ))
           }
-        </div>
-        <div className="page-button">
-          <button onClick={() => {
-            if (pageNo !== 1) {
-              setPageNo(pageNo - 1);
-            }
-          }} className={pageNo === 1 ? 'btn disabled' : 'btn'}>Prev</button>
-          <button onClick={() => {
-            if (pageNo !== maxPage) {
-              setPageNo(pageNo + 1);
-            }
-          }} className={pageNo === maxPage ? 'btn disabled' : 'btn'}>Next</button>
-        </div>
+        </Box>
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Button onClick={handlePrevPage} disabled={pageNo === 1} variant="contained" style={{ marginRight: '8px' }}>Prev</Button>
+          <Button onClick={handleNextPage} disabled={pageNo === maxPage} variant="contained" style={{ marginLeft: '8px' }}>Next</Button>
+        </Box>
       </>
     );
   }

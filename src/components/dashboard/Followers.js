@@ -12,7 +12,13 @@ function Followers(props) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=30`);
+        const response = await axios({
+          method: 'get',
+          url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=30`,
+          headers: {
+            authorization: `Bearer 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`
+          }
+        });
         setFollowers(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -25,6 +31,18 @@ function Followers(props) {
   }, [pageNo, props.userName]);
 
   const maxPage = Math.ceil(props.stats.followers / 30);
+
+  const handleNextPage = () => {
+    if (pageNo < maxPage) {
+      setPageNo(pageNo + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (pageNo > 1) {
+      setPageNo(pageNo - 1);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -41,11 +59,15 @@ function Followers(props) {
               <img src={res.avatar_url} alt="logo" className="f-logo" />
               <span className="f-username" style={{ flex: 1 }}>
                 <Button component={Link} to={`/${res.login}`} className="cool-link">
-                  {res.login} <i className="fa fa-location-arrow" aria-hidden="true"></i>
+                  {res.login}
                 </Button>
               </span>
             </Box>
           ))}
+        </Box>
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Button onClick={handlePrevPage} disabled={pageNo === 1} variant="contained" style={{ marginRight: '8px' }}>Prev</Button>
+          <Button onClick={handleNextPage} disabled={pageNo === maxPage} variant="contained" style={{ marginLeft: '8px' }}>Next</Button>
         </Box>
       </>
     );
