@@ -37,7 +37,7 @@ function Dashboard() {
 
   const [activeTab, setActiveTab] = useState('activity');
 
-  const githubToken = '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';
+  const githubBearer = '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';
 
   const getStats = async () => {
     if (loaded) {
@@ -45,7 +45,7 @@ function Dashboard() {
       try {
         const res = await axios.get(`https://api.github.com/users/${user_id}`, {
           headers: {
-            authorization: `Bearer ${githubToken}`
+            authorization: `Bearer ${githubBearer}`
           }
         });
         const date = new Date(res.data.created_at);
@@ -71,7 +71,7 @@ function Dashboard() {
       try {
         const res = await axios.get(`https://api.github.com/users/${user_id}/events?page=1&per_page=45`, {
           headers: {
-            authorization: `Bearer ${githubToken}`
+            authorization: `Bearer ${githubBearer}`
           }
         });
         setEvents(res.data);

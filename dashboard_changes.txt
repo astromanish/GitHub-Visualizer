@@ -1,4 +1,4 @@
-- add github token in both api: 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
+- add github Bearer in both api: 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
 - remove useless states and use data directly from api. 
 user response
 {

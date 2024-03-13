@@ -10,7 +10,7 @@ const CommitList = (props) => {
     useEffect(() => {
         axios.get(`https://api.github.com/repos/${props.data.match.params.profile_id}/${props.data.match.params.repo_name}/commits?per_page=100`, {
             headers: {
-                authorization: `token ${process.env.REACT_APP_API_KEY}`
+                authorization: `Bearer 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`
             }
         })
             .then(res => {
