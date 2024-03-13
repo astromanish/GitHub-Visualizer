@@ -24,7 +24,7 @@ function Following(props) {
       method: 'get',
       url: `https://api.github.com/users/${props.userName}/following?page=${pageNo}&per_page=30`,
       headers: {
-        authorization: `Bearer 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`
+        authorization: `Bearer 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`
       }
     }).then(function (response) {
       setFollowings(response.data);
