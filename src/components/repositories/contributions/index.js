@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import Commit from './Commit';
+import MonthCommitList from './MonthCommitList';
 
 const CommitList = (props) => {
     const [commitData, setCommitData] = useState([]);
@@ -64,18 +64,12 @@ const CommitList = (props) => {
     }
 
 
-    // Generate Commit components for each month
+    // Generate MonthCommitList components for each month
 const generateMonthComponents = () => {
     const monthlyCommitData = generateMonthlyCommitData();
 
     return (
-        <Grid container spacing={2}>
-            {monthlyCommitData.map((monthData) => (
-                <Grid key={monthData.name} item xs={12} lg={4}>
-                    <Commit monthName={monthData.name} dayData={monthData.days} year={monthData.year}/>
-                </Grid>
-            ))}
-        </Grid>
+        <MonthCommitList monthlyCommitData={monthlyCommitData}/>
     );
 };
 
