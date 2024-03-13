@@ -11,8 +11,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<SearchPage/>} />
-          <Route path="/:profile_id" element={<DashboardPage/>} />
-          <Route path="/:profile_id/:repo_name" element={<RepositoryPage/>} />
+          <Route path="/:user_id" element={<DashboardPage/>} />
+          <Route path="/:user_id/:repo_id" element={<RepositoryPage/>} />
         </Routes>
       </div>
     </BrowserRouter>

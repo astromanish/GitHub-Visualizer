@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Rubik&display=swap');
+
 body {
   background-color: #fcfcfc;
   margin: 0;
@@ -134,7 +135,6 @@ a{
     flex-direction: column;
   }
 }
-
 
 @media(min-width: 1260px) {
   main{

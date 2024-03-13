@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import './styles/app.css';
+import './styles/app.css'; //global styling 
+
+//page specific styling 
 import './styles/Followers.css';
 import './styles/Repositories.css';
 import './styles/Activities.css';
