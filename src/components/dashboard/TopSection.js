@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Grid } from '@mui/material';
-import PuffLoader from 'react-spinners/PuffLoader';
 import Profile from './Profile';
 
 const TopSection = ({ profile }) => (

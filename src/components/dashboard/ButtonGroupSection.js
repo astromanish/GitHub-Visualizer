@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, ButtonGroup, Badge, Grid } from '@mui/material';
+import { Box, Button, ButtonGroup, Badge } from '@mui/material';
 
 import Activities from './Activities'
 import Followers from './Followers'

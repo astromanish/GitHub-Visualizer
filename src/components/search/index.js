@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Box, Container, Grid, TextField, Button, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
+// import env from "react-dotenv";
 
 function Search() {
     const [userName, setUserName] = useState('');
@@ -10,9 +11,10 @@ function Search() {
 
     const fetchSuggestions = async (query) => {
         try {
+            console.log(process.env.API_KEY);
             const response = await axios.get(`https://api.github.com/search/users?q=${query}`, {
                 headers: {
-                    Authorization: 'Bearer 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'
+                    // Authorization: `Bearer ${env.API_KEY}`
                 }
             });
             const users = response.data.items.slice(0, 3); // Limit to 3 suggestions

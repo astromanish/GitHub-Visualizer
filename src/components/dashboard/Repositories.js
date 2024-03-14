@@ -28,7 +28,6 @@ function Repositories(props) {
 
   const getRepo = (res) => {
     const createdAt = new Date(res.created_at);
-    const formattedDate = createdAt.toUTCString().slice(0, 16);
     return (
       <div className="repo-item" key={res.id}>
         <h6 className="repo-name">

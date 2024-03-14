@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import MonthCommitList from './MonthCommitList';

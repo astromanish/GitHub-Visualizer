@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import PuffLoader from 'react-spinners/PuffLoader';
 import { Container, Grid } from '@mui/material';
 import TopSection from './TopSection';
 import ChartSection from './ChartSection';
