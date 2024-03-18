@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { CircularProgress, Box, Button } from '@mui/material';
 import { FileCopyOutlined } from '@mui/icons-material';
 import {fetchGithubUserRepos} from './../utils/githubApiUtils'; 
@@ -26,6 +25,9 @@ function Repositories(props) {
         setIsLoading(false);
       }
     };
+
+    fetchData();
+  }, [props.userName, pageNo, props.stats.repo]);
 
   const getRepo = (res) => {
     const createdAt = new Date(res.created_at);
