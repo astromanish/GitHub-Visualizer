@@ -1,6 +1,6 @@
 {
   "name": "git-stats",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -42,6 +42,11 @@
     ]
   },
   "react-dotenv": {
-    "whitelist": ["API_KEY"]
+    "whitelist": [
+      "API_KEY"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

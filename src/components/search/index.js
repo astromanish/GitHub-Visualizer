@@ -1,35 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Box, Container, Grid, TextField, Button, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-// import env from "react-dotenv";
+import { fetchUserSuggestions } from './../utils/githubApiUtils';
 
 function Search() {
     const [userName, setUserName] = useState('');
     const [suggestions, setSuggestions] = useState([]);
 
-    const fetchSuggestions = async (query) => {
-        try {
-            console.log(process.env.API_KEY);
-            const response = await axios.get(`https://api.github.com/search/users?q=${query}`, {
-                headers: {
-                    // Authorization: `Bearer ${env.API_KEY}`
-                }
-            });
-            const users = response.data.items.slice(0, 3); // Limit to 3 suggestions
-            setSuggestions(users);
-        } catch (error) {
-            console.error('Error fetching suggestions:', error);
-        }
-    };
-
     useEffect(() => {
-        if (userName.trim() !== '') {
-            fetchSuggestions(userName);
-        } else {
-            setSuggestions([]);
-        }
+        const fetchSuggestions = async () => {
+            if (userName.trim() !== '') {
+                const users = await fetchUserSuggestions(userName);
+                setSuggestions(users);
+            } else {
+                setSuggestions([]);
+            }
+        };
+
+        fetchSuggestions();
     }, [userName]);
 
     const handleInputChange = (event) => {

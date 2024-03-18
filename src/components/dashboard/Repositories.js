@@ -3,28 +3,29 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CircularProgress, Box, Button } from '@mui/material';
 import { FileCopyOutlined } from '@mui/icons-material';
+import {fetchGithubUserRepos} from './../utils/githubApiUtils'; 
+
 
 function Repositories(props) {
   const [activity, setActivity] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [pageNo, setPageNo] = useState(1);
+  const [pageNo, setPageNo] = useState(1); // Assume pageNo is managed within this component
   const [maxPage, setMaxPage] = useState(1);
 
   useEffect(() => {
-    axios.get(`https://api.github.com/users/${props.userName}/repos?per_page=10&page=${pageNo}`, {
-      headers: {
-        authorization: `Bearer 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`
-      }
-    })
-      .then(res => {
-        setActivity(res.data);
+    const fetchData = async () => {
+      setIsLoading(true);
+      const { repos, error } = await fetchGithubUserRepos(props.userName, pageNo);
+      if (!error) {
+        setActivity(repos);
         setIsLoading(false);
+        // Assuming `props.stats.repo` is the total count of repositories
         setMaxPage(Math.ceil(props.stats.repo / 10));
-        console.log(res.data);
-      })
-      .catch(err => console.log(err));
-  }, [props.userName, pageNo, props.stats.repo]);
-  
+      } else {
+        console.log(error); // Or handle the error as appropriate
+        setIsLoading(false);
+      }
+    };
 
   const getRepo = (res) => {
     const createdAt = new Date(res.created_at);

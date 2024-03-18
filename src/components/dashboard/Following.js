@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { CircularProgress, Box, Button } from '@mui/material';
+import {fetchGithubUserFollowings} from './../utils/githubApiUtils'; 
+
 
 function Following(props) {
   const [followings, setFollowings] = useState([]);
@@ -12,17 +13,18 @@ function Following(props) {
   useEffect(() => {
     if (pageNo < 1) {
       setPageNo(1);
+    } else {
+      const fetchData = async () => {
+        setIsLoading(true);
+        const { followings, error } = await fetchGithubUserFollowings(props.userName, pageNo);
+        if (!error) {
+          setFollowings(followings);
+        }
+        setIsLoading(false);
+      };
+
+      fetchData();
     }
-    axios({
-      method: 'get',
-      url: `https://api.github.com/users/${props.userName}/following?page=${pageNo}&per_page=20`,
-      headers: {
-        authorization: `Bearer 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`
-      }
-    }).then(function (response) {
-      setFollowings(response.data);
-      setIsLoading(false);
-    });
 
     // Calculate maxPage based on stats.following
     setMaxPage(Math.ceil(props.stats.following / 20));

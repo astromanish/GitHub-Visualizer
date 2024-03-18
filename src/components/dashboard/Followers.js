@@ -1,34 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Box, Button, CircularProgress } from '@mui/material';
+import {fetchGithubUserFollowers} from './../utils/githubApiUtils'; 
+
 
 function Followers(props) {
   const [followers, setFollowers] = useState([]);
-  const [pageNo, setPageNo] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageNo, setPageNo] = useState(1); // Assume pageNo is managed within this component
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios({
-          method: 'get',
-          url: `https://api.github.com/users/${props.userName}/followers?page=${pageNo}&per_page=20`,
-          headers: {
-            authorization: `Bearer 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`
-          }
-        });
-        setFollowers(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching followers:', error);
-        setIsLoading(false);
-      }
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true);
+            const { followers, error } = await fetchGithubUserFollowers(props.userName, pageNo);
+            if (!error) {
+                setFollowers(followers);
+            }
+            setIsLoading(false);
+        };
 
-    fetchData();
-  }, [pageNo, props.userName]);
+        fetchData();
+    }, [props.userName, pageNo]);
 
   const maxPage = Math.ceil(props.stats.followers / 20);
 
